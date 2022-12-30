@@ -8,42 +8,56 @@ import { stripe } from '../lib/stripe'
 import { GetStaticProps } from 'next'
 import Stripe from 'stripe'
 import Link from 'next/link'
+import { Handbag } from 'phosphor-react'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
+interface IProduct{
+  id : string
+  name : string
+  imageUrl : string
+  price : string
+}
 interface HomeProps{
-  products:{
-    id : string
-    name : string
-    imageUrl : string
-    price : string
-  }[]
+  products:IProduct[]
 }
 export default function Home({ products }: HomeProps) {
+  const { cartProducts, addProductToCart } = useContext(ShoppingCartContext)
+  console.log(cartProducts)
   const [sliderRef] = useKeenSlider({
     slides:{
       perView:3,
       spacing:48
     }
   })
+
+  function handleAddCart(product:IProduct){
+    addProductToCart(product)
+  }
   return (
     
     <HomeContainer ref={sliderRef} className="keen_slider">
-      
       {  products.map((product) => {
         return(
-          <Link 
-            href={`/product/${product.id}`} 
+          <div 
             key={product.id}
-            prefetch={false}
           >
           <Product className='keen-slider__slide'>
             <Image  src= {product.imageUrl} width={520} height={480} alt=""/>
             <footer>
-              <strong>{product.name}</strong>
-              <span>
-                {product.price}
-              </span>
+              <div className='info-items'>
+                <strong>{product.name}</strong>
+                <span>
+                  {product.price}
+                </span>
+              </div>
+              <div>
+                <button onClick={() => handleAddCart(product)}>
+                  <Handbag size={32}></Handbag>
+                </button>
+              </div>
             </footer>
           </Product>
-          </Link>
+          </div>
         )
       })
 

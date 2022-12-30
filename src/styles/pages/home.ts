@@ -12,7 +12,6 @@ export const HomeContainer = styled('main', {
 export const Product = styled('div', {
     background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
     borderRadius: 8,
-    cursor:'pointer',
     position:'relative',
 
     overflow:'hidden',
@@ -39,16 +38,30 @@ export const Product = styled('div', {
         transform: 'translateY(110%)',
         opacity: 0,
         transition:'all 0.2s ease-in-out',
+        
+        '.info-items':{
+            strong:{
+                fontSize:'$lg',
+                color:'$gray100'
+            },
+            span:{
+                fontSize:'$xl',
+                fontWeight:'bold',
+                color: '$green300',
+                display:"block",
+            },
+        },
+        button:{
+            backgroundColor: '$green500',
+            display:'flex',
+            padding:'0.75rem',
+            cursor:'pointer',
+            border:0,
+            borderRadius: 6,
+            color: '$white'
 
-        strong:{
-            fontSize:'$lg',
-            color:'$gray100'
-        },
-        span:{
-            fontSize:'$xl',
-            fontWeight:'bold',
-            color: '$green300',
-        },
+        }
+        
     },
 
     '&:hover': {
