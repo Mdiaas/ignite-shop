@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router"
 import { useState } from "react";
@@ -40,7 +41,11 @@ export default function Product({product} : ProductProps){
         )
     }
     return (
-        <ProductContainer>
+        <>
+            <Head>
+                <title>{product.name} | Ignite-shop</title>
+            </Head>
+            <ProductContainer>
             <ImageContainer>
                 <Image src={product.imageUrl} alt="" width={520} height={480}></Image>
             </ImageContainer>
@@ -51,6 +56,8 @@ export default function Product({product} : ProductProps){
                 <button onClick={handleBuyProduct} disabled={isCreatingCheckoutSection}>Comprar agora</button>
             </ProductDetails>
         </ProductContainer>
+        </>
+        
     )
 }
 
