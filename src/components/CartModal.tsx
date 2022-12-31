@@ -1,36 +1,54 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
-import { useContext } from 'react'
+import {  useContext } from 'react'
 import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
-import { Content, ItensList, Overlay } from '../styles/components/CartModal'
+import { Content, Item, ItensList, Overlay, ImageContainer } from '../styles/components/CartModal'
+import { priceFormatter } from '../utils/formatValues'
 export function CartModal(){
-    const { cartProducts } = useContext(ShoppingCartContext)
-    
+    const { cartProducts,removeProductFromCart } = useContext(ShoppingCartContext)
+    function handleRemoveItemFromCart(id : string){
+        removeProductFromCart(id)
+    }
+    const totalItems =  cartProducts.reduce(
+        (acc, product) => {
+            acc.total += product.price
+            return acc
+        },
+        {
+            total: 0,
+        }
+    )
     return (
         <Dialog.Portal>
             <Overlay></Overlay>
             <Content>
                 <Dialog.Title>Meu carrinho</Dialog.Title>
                 <ItensList>
-                    {cartProducts.map((product) => {
+                    {cartProducts.length > 0 ? cartProducts.map((product) => {
                         return (
-                            <div key={product.id}>
-                                <div>
+                            <Item key={product.id}>
+                                <ImageContainer>
                                     <Image src={product.imageUrl} width={94} height={94} alt=""></Image>
-                                </div>
+                                </ImageContainer>
                                 <div>
                                     <h2>{product.name}</h2>
-                                    <span>{product.price}</span>
-                                    <button>remover</button>
+                                    <span>{priceFormatter.format(product.price)}</span>
+                                    <button onClick={() => {handleRemoveItemFromCart(product.id)}}><strong>remover</strong></button>
                                 </div>
-                            </div>
+                            </Item>
                         )
-                    })}
+                    }) : 
+                        <h1>carrinho vazio</h1>
+                    }
                 </ItensList>
                 <footer>
-                    <p>Quantidade <span> itens</span></p>
-                    <p>Valor total  <span></span></p>
-                    <div>
+                    <div className='infoContainer'>
+                        <span>Quantidade itens</span><span>{cartProducts.length}</span>
+                    </div>
+                    <div className='infoContainer'>  
+                        <span><strong>Valor total</strong></span>  <span> {priceFormatter.format(totalItems.total)}</span>
+                    </div>
+                    <div className='buttonContainer'>
                         <button>
                             <strong>Finalizar compra</strong>
                         </button>

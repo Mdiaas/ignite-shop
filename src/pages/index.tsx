@@ -11,18 +11,18 @@ import Link from 'next/link'
 import { Handbag } from 'phosphor-react'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
+import { priceFormatter } from '../utils/formatValues'
 interface IProduct{
   id : string
   name : string
   imageUrl : string
-  price : string
+  price : number
 }
 interface HomeProps{
   products:IProduct[]
 }
 export default function Home({ products }: HomeProps) {
   const { cartProducts, addProductToCart } = useContext(ShoppingCartContext)
-  console.log(cartProducts)
   const [sliderRef] = useKeenSlider({
     slides:{
       perView:3,
@@ -47,7 +47,7 @@ export default function Home({ products }: HomeProps) {
               <div className='info-items'>
                 <strong>{product.name}</strong>
                 <span>
-                  {product.price}
+                  {priceFormatter.format(product.price)}
                 </span>
               </div>
               <div>
@@ -80,10 +80,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style:'currency',
-        currency:'BRL',
-      }).format(price.unit_amount / 100),
+      price: price.unit_amount / 100
     }
   })
   return {

@@ -17,16 +17,21 @@ export const Content = styled(Dialog.Content, {
     right: '0',
     height:'100vh',
     border:0,
-    
-
     footer:{
         width:'100%',
         display:"flex",
         flexDirection:"column",
         alignItems:"flex-start",
         justifyContent:"center",
-
-        div:{
+        'div.infoContainer':{
+            width:'100%',
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"space-between",
+            marginTop:'1.6rem',
+            fontSize:'$md'
+        },
+        'div.buttonContainer':{
             display:"flex",
             justifyContent:"center",
             width:"100%",
@@ -40,11 +45,39 @@ export const Content = styled(Dialog.Content, {
                 backgroundColor:'$green500',
                 cursor:"pointer"
             }
-        }
+        },
         
     }
 })
 
 export const ItensList = styled('div', {
     minHeight: '70vh',
+    display:"flex",
+    flexDirection:"column",
+    gap:'1.5rem'
+})
+
+export const Item = styled('div', {
+    display:"flex",
+    gap: '1.25rem',
+
+    button:{
+        marginTop:'0.5rem',
+        display:"block",
+        color:"$green500",
+        border:0,
+        background:"transparent",
+        cursor:"pointer"
+    }
+})
+
+export const ImageContainer  = styled('div', {
+    background:'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+    borderRadius:6,
+    border:0, 
+    height: '5.9rem',
+    width: '5.9rem',
+    img:{
+        objectFit:"cover"
+    }
 })
