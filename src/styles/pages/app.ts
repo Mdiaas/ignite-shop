@@ -12,5 +12,16 @@ export const Header = styled('header', {
     padding: '2rem',
     width:'100%',
     maxWidth: 1180,
-    margin: '0 auto'
+    margin: '0 auto',
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"space-between",
+
+    div:{
+        backgroundColor: "$gray800",
+        color:"$gray500",
+        padding: "0.5rem",
+        borderRadius:8,
+        cursor:"pointer"
+    }
 })
