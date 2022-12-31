@@ -43,7 +43,12 @@ export const Content = styled(Dialog.Content, {
                 borderRadius:8,
                 color:'$white',
                 backgroundColor:'$green500',
-                cursor:"pointer"
+                cursor:"pointer",
+
+                '&:disabled':{
+                    opacity:0.7,
+                    cursor:'not-allowed'
+                }
             }
         },
         

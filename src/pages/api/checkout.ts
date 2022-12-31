@@ -18,10 +18,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
         success_url: `${process.env.NEXT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.NEXT_URL}`,
         mode: 'payment',
-        line_items: [{
-            price: priceId,
-            quantity: 1
-        }]
+        line_items: priceId
     })
 
     return response.status(201).json({

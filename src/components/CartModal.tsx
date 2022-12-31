@@ -5,10 +5,8 @@ import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
 import { Content, Item, ItensList, Overlay, ImageContainer } from '../styles/components/CartModal'
 import { priceFormatter } from '../utils/formatValues'
 export function CartModal(){
-    const { cartProducts,removeProductFromCart } = useContext(ShoppingCartContext)
-    function handleRemoveItemFromCart(id : string){
-        removeProductFromCart(id)
-    }
+    const { cartProducts,removeProductFromCart, buyProducts } = useContext(ShoppingCartContext)
+    
     const totalItems =  cartProducts.reduce(
         (acc, product) => {
             acc.total += product.price
@@ -18,6 +16,12 @@ export function CartModal(){
             total: 0,
         }
     )
+    function handleRemoveItemFromCart(id : string){
+        removeProductFromCart(id)
+    }
+    function handleBuyProducts(){
+        buyProducts()
+    }
     return (
         <Dialog.Portal>
             <Overlay></Overlay>
@@ -49,7 +53,7 @@ export function CartModal(){
                         <span><strong>Valor total</strong></span>  <span> {priceFormatter.format(totalItems.total)}</span>
                     </div>
                     <div className='buttonContainer'>
-                        <button>
+                        <button onClick={handleBuyProducts} disabled={cartProducts.length==0}>
                             <strong>Finalizar compra</strong>
                         </button>
                     </div>
